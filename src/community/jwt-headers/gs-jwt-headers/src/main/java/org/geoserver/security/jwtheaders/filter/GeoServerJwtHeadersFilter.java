@@ -160,6 +160,10 @@ public class GeoServerJwtHeadersFilter extends GeoServerPreAuthenticatedUserName
         if (userName == null) return null;
 
         try {
+            headerValue = headerValue.replaceFirst("^Bearer", "");
+            headerValue = headerValue.replaceFirst("^bearer", "");
+            headerValue = headerValue.trim();
+
             tokenValidator.validate(headerValue);
         } catch (Exception e) {
             return null;
